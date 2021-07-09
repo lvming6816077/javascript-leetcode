@@ -34,5 +34,27 @@ var rotate = function(matrix) {
     }
 
 };
+var rotate1 = function(matrix){
+    var n = matrix.length
+    // 水平翻转
+    for (var i = 0; i < Math.floor(n / 2); ++i) {
+        for (var j = 0; j < n; ++j) {
+           [matrix[i][j], matrix[n - i - 1][j]] = [matrix[n - i - 1][j],matrix[i][j]];
+        }
+    }
+    // 主对角线翻转
+    for (var i = 0; i < n; ++i) {
+        for (var j = 0; j < i; ++j) {
+            [matrix[i][j], matrix[j][i]] = [matrix[j][i],matrix[i][j]];
+        }
+    }
+
+}
+var swap = function(a,b){
+    var temp = a
+    a = b
+    b = temp
+    return [b, a]
+}
 // @lc code=end
 

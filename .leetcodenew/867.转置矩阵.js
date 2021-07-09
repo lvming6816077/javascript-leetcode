@@ -10,22 +10,19 @@
  * @return {number[][]}
  */
 var transpose = function(matrix) {
-    
+    // 此方式适用n*n的矩阵不适用m*n
     var m = matrix.length
     var n = matrix[0].length
-    var map = {}
+
     
     for (var i = 0 ; i < m ; i++) {
-        for (var j = 0 ; j < n ; j++) {
-            if (map[i+''+j]) continue
-            var temp = matrix[i][j]
-            matrix[i][j] = matrix[j][i]
-            matrix[j][i] = temp
-            map[j+''+i] = true
+        for (var j = 0 ; j < i ; j++) {
+
+            [matrix[i][j],matrix[j][i]] = [matrix[j][i],matrix[i][j]]
 
         }
     }
-    console.log(map)
+
     return matrix
 };
 var transpose = function(matrix) {
@@ -35,10 +32,7 @@ var transpose = function(matrix) {
     var vis = new Array(n).fill('').map(d=>new Array(m).fill(0))
     for (var i = 0 ; i < m ; i++) {
         for (var j = 0 ; j < n ; j++) {
-            var temp = matrix[i][j]
-
-            vis[j][i] = temp
-
+            vis[j][i] = matrix[i][j]
         }
     }
 
