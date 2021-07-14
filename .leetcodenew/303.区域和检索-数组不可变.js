@@ -9,13 +9,13 @@
  * @param {number[]} nums
  */
 var NumArray = function(nums) {
-    this.res = []
+    this.res = [0]
     var sum = 0
     for (var i = 0 ; i < nums.length ; i++) {
         sum = sum + nums[i]
         this.res.push(sum)
     }
-    // console.log(this.res)
+    console.log(this.res)
 };
 
 /** 
@@ -24,7 +24,7 @@ var NumArray = function(nums) {
  * @return {number}
  */
 NumArray.prototype.sumRange = function(left, right) {
-    return this.res[right] - (this.res[left-1]||0)
+    return this.res[right+1] - (this.res[left]||0)
 };
 
 /**

@@ -84,5 +84,40 @@ var exist = function(board, word) {
     return false;
 }
 
+var exist = function(board, word) {
+    var m = board.length
+    var n = board[0].length
+    var visited = new Array(m).fill('').map(d=>new Array(n).fill(false))
+    var dfs = function(i,j,index) {
+        if (i <0 || i >=m || j <0 || j>=0 || word[index] != board[i][j] || visited[i][j]) {
+            return false
+        }
+
+        if (index == word.length-1) {
+            return true
+        }
+
+        visited[i][j] = true
+
+        var res =bfs(i+1,j,index+1)||bfs(i,j+1,index+1)||bfs(i-1,j,index+1)||bfs(i,j-1,index+1)
+        visited[i][j] = false
+
+        return res
+
+
+    }
+    for (var i = 0; i < m; i++) {
+        for (var j = 0; j < n; j++) {
+
+            if (dfs(i, j, 0)) {
+                return true;
+            }
+        }
+    }
+
+
+    return false;
+};
+
 // @lc code=end
 
