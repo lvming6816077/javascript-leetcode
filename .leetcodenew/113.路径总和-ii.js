@@ -66,18 +66,18 @@ var pathSum = function(root, targetSum) {
     var dfs = function(_root,temp,_targetSum){
         if (_root == null) return
         temp.push(_root.val)
+        
         if (_root.left == null && _root.right == null) {
+            
             if (_targetSum == _root.val) {
+
                 res.push(temp.slice())
             }
         }
 
-        if (_root.left) {
-            dfs(_root.left,temp,_targetSum-_root.val)
-        }
-        if (_root.right) {
-            dfs(_root.right,temp,_targetSum-_root.val)
-        }
+
+        dfs(_root.left,temp,_targetSum-_root.val)
+        dfs(_root.right,temp,_targetSum-_root.val)
 
         temp.pop()
     }
@@ -86,5 +86,9 @@ var pathSum = function(root, targetSum) {
 
     return res
 }
+var twoSum = function(nums, target) {
+
+};
+
 // @lc code=end
 

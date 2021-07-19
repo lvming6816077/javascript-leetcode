@@ -44,7 +44,7 @@ var lengthOfLongestSubstring = function(s) {
     var res = 0
     while(right < s.length) {
         var r = s[right]
-        right++
+        
         if (map[r]) {
             map[r]++
         } else {
@@ -58,7 +58,8 @@ var lengthOfLongestSubstring = function(s) {
             map[l]--
         }
 
-        res = Math.max(right-left,res)
+        res = Math.max(right+1-left,res)
+        right++
 
     }
 

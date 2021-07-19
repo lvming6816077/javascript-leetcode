@@ -38,5 +38,22 @@ var buildTreeDeal = function(preorder,pstart,pend,inorder,istart,iend){
 
     return root
 }
+
+var buildTreeDeal = function(preorder,pstart,pend,inorder,istart,iend) {
+    if (pstart > pend || istart > iend) {
+        return null
+    }
+
+    var root = new TreeNode(preorder[pstart])
+
+    var index = inorder.indexOf(preorder[pstart])
+
+    var num = index-1-istart
+
+    root.left = buildTreeDeal(preorder,pstart+1,pstart+1+num,inorder,istart,index-1)
+    root.right = buildTreeDeal(preorder,pstart+2+num,pend,inorder,index+1,iend)
+
+    return root
+}
 // @lc code=end
 

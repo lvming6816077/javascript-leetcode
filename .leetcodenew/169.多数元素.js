@@ -10,7 +10,7 @@
  * @return {number}
  */
 var majorityElement = function(nums) {
-    nums = [1,2,3,4]
+
     var major = -1
     var count = 0
     for (var i = 0 ; i < nums.length ; i++) {
@@ -26,5 +26,6 @@ var majorityElement = function(nums) {
 
     return major
 };
+
 // @lc code=end
 

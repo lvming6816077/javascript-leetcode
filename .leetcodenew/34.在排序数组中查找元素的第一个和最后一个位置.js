@@ -57,5 +57,6 @@ var searchRange1 = function(nums, target) {
 
     return [j,k]
 };
+
 // @lc code=end
 

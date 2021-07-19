@@ -66,6 +66,42 @@ var numIslands = function(grid) {
 
     return count
 }
+var movingCount = function(m, n, k) {
+    var count = 0
+    var visited = new Array(m).fill('').map(d=>new Array(n).fill(false))
+    var bfs = function(i,j) {
+        var dirs = [[0,1],[1,0],[0,-1],[-1,0]]
+        var queue = []
+        queue.push([i,j])
+        visited[i][j] = true
+
+        while(queue.length) {
+            var cur = queue.shift()
+            for (var dir of dirs) {
+                
+    
+                var nx = cur[0] + dir[0]
+                var ny = cur[1] + dir[1]
+    
+                var si = Number(nx.toString().split('').reduce((pre,cur)=>Number(pre)+Number(cur)))
+                var sj = Number(ny.toString().split('').reduce((pre,cur)=>Number(pre)+Number(cur)))
+    
+                if (nx >=0 && nx<m&&ny>=0&&ny<n&&!visited[nx][ny]&&si+sj<=k) {
+                    count++
+                    queue.push([nx,ny])
+                    visited[nx][ny] = true
+                }
+    
+            }
+        }
+
+
+    }
+
+    bfs(0,0)
+
+    return count
+};
 var numIslands = function(grid) {
     var bfs = function(i,j){
         var queue = []

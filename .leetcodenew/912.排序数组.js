@@ -38,5 +38,45 @@ var sortArray = function(nums) {
 
     return sortArray(left).concat([midArr]).concat(sortArray(right))
 };
+var sortArray = function(nums) {
+    if (nums.length <= 1) {
+        return nums;
+    }
+    var mid =  Math.floor(nums.length/2)
+    var left = sortArray(nums.slice(0,mid))
+    var right = sortArray(nums.slice(mid))
+    console.log(left)
+    
+    return merge(left,right)
+}
+var merge = function(arr1,arr2) {
+    console.log('x')
+    var res = []
+
+    var i = 0
+    var j = 0
+
+    while (i<arr1.length && j<arr2.length) {
+        if (arr1[i] < arr2[j]) {
+            res.push(arr1[i])
+            i++
+        } else {
+            res.push(arr2[j])
+            j++
+        }
+    }
+
+    if (i == arr1.length) {
+        res = res.concat(arr2.slice(j))
+    }
+    if (j == arr2.length) {
+        res = res.concat(arr1.slice(i))
+    }
+
+    return res
+}
+var sortArray1 = function(nums) {
+
+}
 // @lc code=end
 

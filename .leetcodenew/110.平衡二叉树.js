@@ -19,18 +19,20 @@
  */
  var isBalanced = function(root) {
      if (root == null) return true
-     var flagleft = isBalanced(root.left)
-     var flagright = isBalanced(root.right)
+
 
      var deepleft = maxD(root.left)
 
      var deepright = maxD(root.right)
 
+     var flagleft = isBalanced(root.left)
+     var flagright = isBalanced(root.right)
+
      return flagleft && flagright && Math.abs(deepleft-deepright) < 2
  }
 
 
-var isBalanced = function(root) {
+var isBalanced1 = function(root) {
     if (root == null) return true
 
 

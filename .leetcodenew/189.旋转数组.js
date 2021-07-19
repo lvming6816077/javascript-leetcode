@@ -30,11 +30,13 @@ var rotate = function(nums, k) {
     for(let i = 0; i < nums.length; i++) {
       a[(i+k) % nums.length] = nums[i];
     }
-    console.log(a)
+
     for(let i = 0; i < nums.length; i++) {
       nums[i] = a[i];
     }
-  }
+}
+
+
 
 // @lc code=end
 
