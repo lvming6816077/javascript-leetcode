@@ -30,9 +30,10 @@ var productExceptSelf = function(nums) {
     var arr2 = []
     var res = []
     for (var i = 0 ; i < nums.length ; i++) {
-        sum = sum * (nums[i-1] == undefined ? 1 : nums[i-1])
+        sum = sum * nums[i]//(nums[i-1] == undefined ? 1 : nums[i-1])
         arr1.push(sum)
     }
+    console.log(arr1)
     sum = 1
     for (var i = nums.length-1 ; i >= 0 ; i--) {
         sum = sum  * (nums[i+1] == undefined ? 1 : nums[i+1])

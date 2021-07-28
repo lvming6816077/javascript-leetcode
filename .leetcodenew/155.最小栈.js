@@ -25,9 +25,7 @@ MinStack.prototype.push = function(val) {
     else if (this.min_stack[this.min_stack.length-1] >= val) {
         this.min_stack.push(val)
     }
-    console.log('s'+this.stack)
 
-    console.log(this.min_stack)
 };
 
 /**

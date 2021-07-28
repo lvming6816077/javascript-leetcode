@@ -23,17 +23,7 @@ var inorderTraversal = function(root) {
     dfs(root,[])
     return []
 };
-var dfs = function(root,temp){
-    if (root == null) return
 
-    temp.push(root.val)
-    console.log(temp)
-    dfs(root.left,temp)
-
-    dfs(root.right,temp)
-
-    temp.pop()
-}
 var isSubStructure = function(A, B) {
 
 };

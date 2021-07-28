@@ -26,10 +26,12 @@ var subarraySum = function(nums, k) {
     var count = 0
     for (var i = 0 ; i < pre.length ; i++) {
         if (map.has(pre[i] - k)) {
-            count ++
+            count = count + map.get(pre[i] - k)
+            // map.set(pre[i] - k,count)
         }
+        map.set(pre[i],(map.get(pre[i])||0)+1)
 
-        map.set(pre[i],true)
+        
         
     }
 
