@@ -41,5 +41,38 @@ var myAtoi = function(s) {
 
     return res
 };
+var treeToDoublyList = function(root) {
+    var arr = []
+    var res = []
+    while (arr.length || root) {
+        if (root) {
+            arr.push(root)
+            root = root.left
+        } else {
+            var temp = arr.pop()
+            res.push(temp.val)
+            root = temp.right
+        }
+    }
+    var head = null
+    for (var i = 0 ; i < res.length ;i++) {
+        if (i == 0) {
+            res[i].left = res[res.length-1]
+            res[i].right = res[i+1]
+            head = res[i]
+        }
+        else if (i == res.length-1) {
+            res[i].left = res[i-1]
+            res[i].right = res[0]
+        } else {
+            res[i].left = res[i-1]
+            res[i].right = res[i+1]
+        }
+
+    }
+
+
+    return head
+};
 // @lc code=end
 
