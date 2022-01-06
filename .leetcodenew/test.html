@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <script type="text/javascript" src="./promise.js"></script>
+    <script type="text/javascript" src="https://test2-trade-admin.yimei180.net/js/chunk-7a5169a2.604b51e3.js"></script>
+    <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .main {
+          padding-left: 200px;
+    padding-right: 300px;
+    overflow: hidden;
+    }
+      .center {
+      width: 100%;
+      height: 500px;
+      background: lightgray;
+      float: left;
+      }
+      .left {
+            width: 200px;
+            height: 500px;
+            background: lightpink;
+            margin-left: -100%;
+            float: left;
+            position: relative;
+            left: -200px;
+      }
+      .right {
+            width: 300px;
+            height: 500px;
+            background: lightgreen; 
+            position: relative;
+            margin-left: -300px; 
+            right: -300px;
+            float: left;
+      }
+      .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+}
+    </style>
+  </head>
+  <body>
+    <div class="main clearfix">
+      <div class="center">中间自适应</div>
+      <div class="left">左列定宽</div>
+
+      <div class="right">右列定宽</div>
+</div>
+
+
+    <script>
+      var throttle = (fn, delay)=>{
+        let last = 0;
+        return (...args)=>{
+          let now = Date.now()
+
+          if (Date.now() - last > delay) {
+            last = now
+
+            fn && fn.apply(this, args)
+          }
+        } 
+      }
+//函数节流应用的实际场景，多数在监听页面元素滚动事件的时候会用到
+      // setInterval(throttle(()=>{
+      //     console.log(11)
+      //   },3000),500)
+
+      const throttle = (fn, delay)=>{
+        var last = 0
+
+        return (...args) =>{
+          let now = Date.now()
+          if (now - last > delay) {
+            last = now
+            fn && fn.apply(this,args)
+          }
+        }
+      }
+
+
+      const debounce = (fn, delay) =>{
+        let timer;
+        debugger
+        return (...args) => {
+
+          if (timer) {
+            clearTimeout(timer)
+          }
+          timer = setTimeout(()=>{
+            fn && fn.apply(this, args)
+          }, delay)
+        } 
+
+      }
+
+      const debounce = (fn, delay) =>{
+        var timer
+        return (...args) =>{
+          if (timer) {
+            clearTimeout(timer)
+          }
+
+          timer = setTimeout(()=>{
+            fn && fn.apply(this,args)
+          },delay)
+        }
+      }
+//函数防抖的应用场景，最常见的就是用户注册时候的手机号码验证和邮箱验证了。只有等用户输入完毕后，前端才需要检查格式是否正确，如果不正确，再弹出提示语。以下还是以页面元素滚动监听的例子，来进行解析
+      // setInterval(debounce(()=>{
+      //   console.log(12)
+      // },500),1000)
+
+      var minSubArrayLen = function(s, nums) {
+        // var left = 0;
+        // var right = 1
+        // while (left <)
+          var sub = nums.length
+          for (var i = 0 ; i < nums.length ; i++) {
+                  var k = i;
+                  // var right = i+1;
+                  var sum = 0
+
+                  if (nums[k] >= s) return 1
+                 
+                  while (sum < s && k < nums.length) {
+                      sum = sum + nums[k]
+                      k++
+                      
+                      
+                  }
+                  
+                  if (sum >=s) {
+                    sub = Math.min(sub, k - i)
+                  }
+                  
+                  
+                  
+                  
+                  
+              }
+
+          return sub
+      };
+      console.log(minSubArrayLen(7,[2,3,1,2,4,3]))
+    </script>
+  </body>
+</html>
