@@ -204,6 +204,35 @@ Promise.all = function(iterator) {
                 )
             })
         }
+      var PubSub = (function() {  
+    var queue = {};
+    var subscribe = function(event, fn) {
+        if (!queue[event]) queue[event] = [];
+        queue[event].push(fn);
+    }
+    var publish = function(event) {
+        var eventQueue = queue[event],
+            len = eventQueue.length;
+        if (eventQueue) {
+            eventQueue.forEach(function(item, index) {
+                item();
+            });
+        }
+    }
+    var off = function(event, fn) {
+        var eventQueue = queue[event];
+        if (eventQueue) {
+            queue[event] = eventQueue.filter(function(item) {
+                return item !== fn;
+            });
+        }
+    }
+    return {
+        subscribe: on,
+        publish: emit,
+        off: off
+    }
+}());
     </script>
   </body>
 </html>
