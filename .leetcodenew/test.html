@@ -7,46 +7,7 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <script type="text/javascript" src="./promise.js"></script>
     <script type="text/javascript" src="https://test2-trade-admin.yimei180.net/js/chunk-7a5169a2.604b51e3.js"></script>
-    <style type="text/css">
-    body {
-      margin: 0;
-      padding: 0;
-    }
-    .main {
-          padding-left: 200px;
-    padding-right: 300px;
-    overflow: hidden;
-    }
-      .center {
-      width: 100%;
-      height: 500px;
-      background: lightgray;
-      float: left;
-      }
-      .left {
-            width: 200px;
-            height: 500px;
-            background: lightpink;
-            margin-left: -100%;
-            float: left;
-            position: relative;
-            left: -200px;
-      }
-      .right {
-            width: 300px;
-            height: 500px;
-            background: lightgreen; 
-            position: relative;
-            margin-left: -300px; 
-            right: -300px;
-            float: left;
-      }
-      .clearfix::after {
-      content: "";
-      display: block;
-      clear: both;
-}
-    </style>
+
   </head>
   <body>
     <div class="main clearfix">
@@ -120,38 +81,129 @@
       //   console.log(12)
       // },500),1000)
 
-      var minSubArrayLen = function(s, nums) {
-        // var left = 0;
-        // var right = 1
-        // while (left <)
-          var sub = nums.length
-          for (var i = 0 ; i < nums.length ; i++) {
-                  var k = i;
-                  // var right = i+1;
-                  var sum = 0
+function Promiselv(handler) {
+  var that = this
+  this.state = 'pending'
+  this.resolveValue = '';
+  this.rejectValue = '';
+  this.resolveList = []
+  this.rejectList = []
+  var resolve = function(val){
 
-                  if (nums[k] >= s) return 1
-                 
-                  while (sum < s && k < nums.length) {
-                      sum = sum + nums[k]
-                      k++
-                      
-                      
-                  }
-                  
-                  if (sum >=s) {
-                    sub = Math.min(sub, k - i)
-                  }
-                  
-                  
-                  
-                  
-                  
-              }
+    if (that.state == 'pending') {
+      that.state = 'resolved'
+      that.resolveValue = val
 
-          return sub
-      };
-      console.log(minSubArrayLen(7,[2,3,1,2,4,3]))
+      that.resolveList.forEach(function(item){
+        item && item(that.resolveValue)
+      })
+    }
+  }
+  var reject = function(val){
+    if (that.state == 'pending') {
+      that.state = 'rejected'
+      that.rejectValue = val
+    }
+    that.rejectList.forEach(function(item){
+      item && item(that.rejectValue)
+    })
+  }
+
+
+  try {
+    handler(resolve,reject)
+  }catch(e){
+    reject(e)
+  }
+}
+
+Promiselv.prototype.then = function(onResolved, onRejected){
+
+
+  if(this.state === 'resolved'){
+      onResolved && onResolved(this.resolveValue)
+  }
+  if(this.state === 'rejected'){
+      onRejected && onRejected(this.rejectValue)
+  }
+  if (this.state == 'pending') {
+    this.rejectList.push(onRejected)
+    this.resolveList.push(onResolved)
+  }
+
+
+}
+var p1 = new Promiselv(function(resolve,reject){
+  // console.log(1)
+  setTimeout(function(){
+      resolve(11)
+  },1000)
+
+  
+})
+// var all = function(promiseList){
+//   var result = []
+//   var count = 0;
+//   return new Promiselv(function(resolve, reject){
+//     promiseList.forEach(function(item,i){
+//       item.then(function(val){
+//         count++
+//         result.push(val)
+
+//         if (count == promiseList.length) {
+
+//           resolve(result)
+//         }
+//       })
+//     })
+//   })
+
+
+// }
+// var race = function(promiseList){
+//   return new Promiselv(function(resolve, reject){
+//     promiseList.forEach(function(item,i){
+//       item.then(function(val){
+//         resolve(val)
+//       })
+//     })
+//   })
+
+
+// }
+Promise.all = function(iterator) {
+  if (!Array.isArray(iterator)) return;
+  let count = 0;
+  let res = [];
+  return new Promise((resolve, reject) => {
+    for(let item of iterator) {
+      Promise.resolve(item)
+      .then(data => {
+        res[count++] = data;
+        if (count === iterator.length) {
+          resolve(res);
+        }
+      })
+      .catch(e => {
+        reject(e);
+      })
+    }
+  })
+}
+       function promiseRace(promises) {
+            if (!Array.isArray(promises)) {
+                throw new Error("promises must be an array")
+            }
+            return new Promise(function (resolve, reject) {
+                promises.forEach(p =>
+                    Promise.resolve(p).then(data => {
+                        resolve(data)
+                    }, err => {
+                        reject(err)
+                    })
+                )
+            })
+        }
     </script>
   </body>
 </html>
