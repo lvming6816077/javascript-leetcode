@@ -34,5 +34,21 @@ var climbStairs = function(n) {
 
     return climbStairs(n-1)+climbStairs(n-2)
 };
+var climbStairs = function(n) {
+    var memo = {}
+    var loop = function(_n) {
+        if (memo[_n]) return memo[_n]
+        if (_n == 1) return 1
+        if (_n == 2) return 2
+
+        var ans = loop(_n-1) + loop(_n-2)
+
+        memo[_n] = ans
+
+        return ans
+    }
+
+    return loop(n)
+};
 // @lc code=end
 

@@ -49,5 +49,23 @@ var findDuplicate = function(nums) {
     }
     return ant;
 }
+var findDuplicate = function (nums) {
+    let slow = fast = 0 // 初始节点
+    while(nums[slow] && nums[fast]){
+        slow = nums[slow]
+        fast = nums[nums[fast]]
+        // console.log(slow,fast)
+        if(slow === fast){
+            
+            let next = 0
+            while(next !== slow) {
+                slow = nums[slow]
+                next = nums[next]
+            }
+            return slow
+        }
+    }
+}
+
 // @lc code=end
 

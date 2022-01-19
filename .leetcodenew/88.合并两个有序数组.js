@@ -83,5 +83,56 @@ var merge = function(nums1, m, nums2, n) {
     return nums1
 
 }
+var merge = function(nums1, m, nums2, n) {
+    var arr = []
+    var i = 0,j = 0
+    while(i < m && j < n) {
+        if (nums1[i] < nums2[j]) {
+            arr.push(nums1[i])
+            i++
+        } else {
+            arr.push(nums2[j])
+            j++
+        }
+    }
+
+    if (i < m) {
+        arr = arr.concat(nums1.slice(i,m))
+    }
+    if (j < n) {
+        arr = arr.concat(nums2.slice(j,n))
+    }
+    for (var k = 0 ; k < arr.length ; k++) {
+        nums1[k] = arr[k]
+    }
+    return nums1
+}
+var merge = function(nums1, m, nums2, n) {
+    // nums1 = [7,8,9,0,0,0]
+    // nums2 = [1,2,3]
+    var i = m-1,j=n-1,k=m+n-1
+
+    while(i>=0&&j>=0) {
+        if (nums1[i] > nums2[j]) {
+            nums1[k] = nums1[i]
+            i--
+        } else {
+            nums1[k] = nums2[j]
+            j--
+        }
+        k--
+        // console.log(nums1)
+    }
+    // console.log('x'+j)
+    while(j>=0) {
+        nums1[k] = nums2[j]
+        j--
+        k--
+    }
+
+    // console.log(nums1)
+
+    return nums1
+}
 // @lc code=end
 

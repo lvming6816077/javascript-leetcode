@@ -33,5 +33,28 @@ var addStrings = function(num1, num2) {
 
     return sum
 };
+var addStrings = function(num1, num2) {
+    var len = Math.max(num1.length,num2.length)
+    num1 = num1.padStart(len,'0')
+    num2 = num2.padStart(len,'0')
+
+    var jin = 0
+    var s = ''
+    var val = 0
+    for (var i = len-1 ; i >=0 ; i--) {
+        val = Number(num1[i])+Number(num2[i])+jin
+
+        jin = parseInt(val/10)
+
+        s = val%10 + s
+
+    }
+
+    if (jin == 1) {
+        s = '1'+s
+    }
+
+    return s
+}
 // @lc code=end
 

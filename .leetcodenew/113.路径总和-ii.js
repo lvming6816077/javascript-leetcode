@@ -86,8 +86,30 @@ var pathSum = function(root, targetSum) {
 
     return res
 }
-var twoSum = function(nums, target) {
+var pathSum = function(root, targetSum) {
+    var res = []
+    var back = function(temp,_root,target){
+        if (_root == null) {
+            return
+        }
 
+        temp.push(_root.val)
+
+        if (_root.left == null && _root.right == null) {
+            if (target == _root.val) {
+                res.push(temp.slice())
+            }
+        }
+
+        back(temp,_root.left,target-_root.val)
+        back(temp,_root.right,target-_root.val)
+
+        temp.pop()
+    }
+
+    back([],root,targetSum)
+
+    return res
 };
 
 // @lc code=end

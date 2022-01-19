@@ -22,5 +22,20 @@ var numSquares = function(n) {
     }
     return dp[n]
 };
+var numSquares = function(n) {
+    // 完全背包
+    var dp = new Array(n+1).fill(Number.MAX_SAFE_INTEGER)
+    dp[0] = 0
+    for (var i = 1 ; i*i <= n ;i++) {// 外层物品
+        for (var j = 1 ; j <= n ;j++) {// 内层背包
+            if (j-i*i >=0) {
+                dp[j] = Math.min(dp[j],dp[j-i*i]+1)
+            }
+            
+        }
+    }
+
+    return dp[n]
+}
 // @lc code=end
 

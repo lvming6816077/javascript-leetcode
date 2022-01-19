@@ -61,5 +61,29 @@ var threeSum = function(nums) {
 
     return res.map(d=>d.split(','))
 };
+var threeSum = function(nums) {
+    nums.sort((a,b)=>a-b)
+    var res = []
+
+    for (var i = 0 ; i < nums.length ; i++) {
+        var left = i+1,right = nums.length-1
+        while(left < right) {
+            if (nums[i] + nums[left] + nums[right] < 0) {
+                left++
+            } else if (nums[i] + nums[left] + nums[right] > 0) {
+                right--
+            } else {
+                var cur = [nums[i],nums[left],nums[right]].join(',')
+                if (res.indexOf(cur) == -1) {
+                    res.push(cur)
+                }
+                left++
+                right--
+            }
+        }
+    }
+
+    return res.map(i=>i.split(','))
+}
 // @lc code=end
 

@@ -101,5 +101,37 @@ var loop = function(head,k){
         return first
     }
 }
+var rotateRight = function(head, k) {
+
+    var cur = head
+    var arr = []
+    while(cur) {
+        arr.push(cur.val)
+        cur = cur.next
+    }
+
+    k = k%arr.length
+
+    while(k--) {
+        var last = arr[arr.length-1]
+        for (var i = arr.length-1; i>=0; i--) {
+            if (i == 0) {
+                arr[i] = last
+            } else {
+                arr[i] = arr[i-1]
+            }
+        }
+    }
+
+    var temp = head
+
+    for (var i = 0 ; i < arr.length ; i++) {
+        temp.val = arr[i]
+        temp = temp.next
+    }
+
+    return head
+
+}
 // @lc code=end
 

@@ -21,20 +21,20 @@ var levelOrder = function(root) {
     if (root == null) return []
     var arr = []
     var res = []
-    arr.push(root)
+    arr.unshift(root)
     while(arr.length) {
         var len = arr.length
         var floor = []
 
         while(len > 0) {
-            var temp = arr.shift()
+            var temp = arr.pop()
             if (!temp) break
             floor.push(temp.val)
             if (temp.left) {
-                arr.push(temp.left)
+                arr.unshift(temp.left)
             }
             if (temp.right) {
-                arr.push(temp.right)
+                arr.unshift(temp.right)
             }
             len--
         }
@@ -44,7 +44,7 @@ var levelOrder = function(root) {
 
     return res
 };
-var levelOrder = function(root) {
+var levelOrder1 = function(root) {
     if (root == null) return []
     var arr = []
     var res = []
@@ -71,7 +71,7 @@ var levelOrder = function(root) {
     return res
 };
 
-var levelOrder = function(root) {
+var levelOrder1 = function(root) {
     if (root == null) return []
     var arr = []
     arr.push(root)
@@ -98,7 +98,7 @@ var levelOrder = function(root) {
 
     return res
 };
-var levelOrder = function(root) {
+var levelOrder1 = function(root) {
     var arr = []
     arr.push(root)
     var res = []
@@ -122,24 +122,56 @@ var levelOrder = function(root) {
     
     return res
 };
+var levelOrder1 = function(root) {
+    if (root == null) return []
+    var arr = []
+    arr.push(root) // 根节点入队
+    var res = []
+
+    while (arr.length) {
+        var len = arr.length
+        var floor = []// 存储每一层的数据
+        while (len) {
+            var temp = arr.shift()// 当前元素出队
+            if (!temp) break
+            // 每一层数据
+            floor.push(temp.val)
+
+            // 左节点入队
+            if (temp.left) {
+                arr.push(temp.left)
+            }
+            // 右节点入队
+            if (temp.right) {
+                arr.push(temp.right)
+            }
+
+            len--
+        }
+        // 存储每一层数据
+        res.push(floor)
+    }
+
+    return res
+}
 var levelOrder = function(root) {
     if (root == null) return []
     var arr = []
     arr.push(root)
     var res = []
-
-    while (arr.length) {
+    while(arr.length) {
         var len = arr.length
         var floor = []
-        while (len) {
+
+        while(len) {
             var temp = arr.shift()
             if (!temp) break
             floor.push(temp.val)
 
+
             if (temp.left) {
                 arr.push(temp.left)
             }
-
             if (temp.right) {
                 arr.push(temp.right)
             }
@@ -152,7 +184,6 @@ var levelOrder = function(root) {
 
     return res
 }
-
 
 // @lc code=end
 

@@ -89,30 +89,25 @@ var minWindow = function(s, t) {
 
     while(right < s.length) {
         var r = s[right]
-        right++
+        right++ 
         
-
-        if (map[r] != undefined) {
+        if (map.hasOwnProperty(r)) { // 每当进入窗口的字符在s中出现时，就将次数-1
             map[r]--
         }
-
-        if (map[r] == 0) {
+    
+        if (map[r] == 0) {// 当某个字符次数为0时，表示当前的这个字符就已经不缺
             missingType--
         }
-
-        while(missingType == 0) {
-            flag = true
-            if (right - left < res.length) {
+    
+        while(missingType == 0) { // 所有字符都匹配上，这时可以缩小窗口
+            flag = true // 在s中找打过t
+            if (right - left < res.length) { // 取长度
                 res = s.substring(left,right)
             }
-
-
             var l = s[left]
             left++
-
-
-            map[l]++
-            if (map[l] > 0) {
+            map[l]++ // 每当字符移出窗口时，就将次数+1
+            if (map[l] > 0) { // 如果当前的字符大于0，表示还缺少这个字符
                 missingType++
             }
         }

@@ -66,5 +66,31 @@ var isValid = function(s) {
 
     return stack.length == 0 ? true : false
 }
+var isValid = function(s) {
+    var arr = []
+    for (var i = 0 ; i < s.length ; i++) {
+        if (s[i] == '(') {
+            arr.push('(')
+        }else if (s[i] == '[') {
+            arr.push('[')
+        }else if (s[i] == '{') {
+            arr.push('{')
+        } else if (s[i] == ')') {
+            var flag = arr.pop() == '('
+
+            if (!flag) return false
+        } else if (s[i] == ']') {
+            var flag = arr.pop() == '['
+
+            if (!flag) return false
+        } else if (s[i] == '}') {
+            var flag = arr.pop() == '{'
+
+            if (!flag) return false
+        }
+    }
+
+    return arr.length == 0
+}
 // @lc code=end
 

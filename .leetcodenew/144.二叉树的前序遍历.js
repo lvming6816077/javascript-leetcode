@@ -39,5 +39,36 @@ var preorderTraversal = function(root) {
 
     return res
 };
+var preorderTraversal = function(root) {
+    var res = []
+    var loop = function(root) {
+        if (root == null) return
+        res.push(root.val)
+        loop(root.left)
+        loop(root.right)
+    }
+
+    loop(root)
+
+    return res
+}
+var preorderTraversal = function(root) {
+    var res = [],arr = [root]
+    while(arr.length) {
+        var temp = arr.pop()
+        if (!temp) break
+        
+        res.push(temp.val)
+
+        if (temp.right) {
+            arr.push(temp.right)
+        }
+        if (temp.left) {
+            arr.push(temp.left)
+        }
+    }
+
+    return res
+}
 // @lc code=end
 

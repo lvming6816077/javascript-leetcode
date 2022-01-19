@@ -45,5 +45,21 @@ var insert = function(intervals,newInterval) {
 
     return res
 };
+var insert = function(intervals,newInterval) {
+    intervals.push(newInterval)
+    intervals.sort((a,b)=>a[0]-b[0])
+
+    var res = [intervals[0]]
+
+    for (var i = 1 ; i < intervals.length ; i++) {
+        if (res[res.length-1][1] < intervals[i][0]) {
+            res.push(intervals[i])
+        } else {
+            res[res.length-1][1] = Math.max(res[res.length-1][1],intervals[i][1])
+        }
+    }
+
+    return res
+}
 // @lc code=end
 

@@ -53,6 +53,18 @@ var integerBreak = function(n) {
         return Math.pow(3,pre-1) *4
     }
 }
+var integerBreak = function(n) {
+    if (n == 1) return 1
+    if (n == 2) return 1
+    if (n == 3) return 2
+    var res = 1
+    while(n > 4) {
+        res = res * 3
+        n = n-3
+    }
+
+    return res*n
+}
 
 // @lc code=end
 

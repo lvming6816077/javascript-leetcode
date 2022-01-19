@@ -27,7 +27,7 @@ var inorderTraversal = function(root) {
 var isSubStructure = function(A, B) {
 
 };
-var inorderTraversal22 = function(root) {
+var inorderTraversal = function(root) {
     var res = []
     var arr = []
 

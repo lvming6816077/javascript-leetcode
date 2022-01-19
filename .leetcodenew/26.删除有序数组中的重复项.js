@@ -23,5 +23,20 @@ var removeDuplicates = function(nums) {
 
     return j+1
 };
+var removeDuplicates = function(nums) {
+    var wright = 0,read = 1
+
+    while(read < nums.length) {
+        if (nums[read] == nums[wright]) {
+            read++
+        } else {
+            wright++
+            nums[wright] = nums[read]
+            read++
+        }
+    }
+
+    return wright+1
+}
 // @lc code=end
 

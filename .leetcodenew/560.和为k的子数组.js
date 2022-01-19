@@ -18,6 +18,7 @@ var subarraySum = function(nums, k) {
         sum = sum + nums[i]
         pre.push(sum)
     }
+
     
 
     // console.log(pre)
@@ -46,5 +47,27 @@ var subarraySum = function(nums, k) {
     return count
 
 };
+var subarraySum = function(nums, k) {
+    var pre = [0]
+    var sum = 0
+    for (var i = 0 ; i < nums.length ; i++) {
+        sum = sum + nums[i]
+        pre.push(sum)
+    }
+
+    var count = 0
+    var map = {}
+
+    for (var i = 0 ; i < pre.length ; i++) {
+        if (map[pre[i]-k]) {
+            count = count + map[pre[i]-k]
+        }
+        map[pre[i]] = (map[pre[i]]||0) + 1
+        
+    }
+
+
+    return count
+}
 // @lc code=end
 

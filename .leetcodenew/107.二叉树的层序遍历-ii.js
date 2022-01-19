@@ -20,20 +20,20 @@
 var levelOrderBottom = function(root) {
     if (root == null) return []
     var arr = []
-    arr.push(root)
+    arr.unshift(root)
     var res = []
     while (arr.length) {
         var len = arr.length
         var floor = []
         while (len) {
-            var temp = arr.shift()
+            var temp = arr.pop()
             if (!temp) break
             floor.push(temp.val)
             if (temp.left) {
-                arr.push(temp.left)
+                arr.unshift(temp.left)
             }
             if (temp.right) {
-                arr.push(temp.right)
+                arr.unshift(temp.right)
             }
             len--
         }

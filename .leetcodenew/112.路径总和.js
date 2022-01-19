@@ -44,5 +44,29 @@ var hasPathSum = function(root, targetSum) {
 
     return hasPathSum(root.left,targetSum-root.val) ||hasPathSum(root.right,targetSum-root.val)
 }
+var hasPathSumhasPathSum = function(root, targetSum) {
+    var flag = false
+    var back = function(_root,target){
+        if (_root == null) {
+            return
+        }
+
+
+        if (_root.left == null && _root.right == null) {
+            if (target == _root.val) {
+                flag = true
+            }
+        }
+
+        back(_root.left,target-_root.val)
+        back(_root.right,target-_root.val)
+
+
+    }
+
+    back(root,targetSum)
+
+    return flag
+};
 // @lc code=end
 

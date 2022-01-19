@@ -99,5 +99,54 @@ var reverseList = function(head){
 
 //     return prev
 // }
+var reverseList = function(head) {
+    var prev = null
+    var cur = head
+    while(cur) {
+        var temp = cur.next
+        cur.next = prev
+        prev = cur
+        cur = temp
+    }
+
+    return prev
+}
+var reverseList = function(head) {
+    var pre = null
+    var cur = head
+
+    while(cur) {
+        var temp = cur.next
+        cur.next = pre
+        pre = cur
+        cur = temp
+
+    }
+
+    return pre
+}
+var reverseList = function(head) {
+    var res = null
+    var dfs = function(_head,pre){
+        
+        if (_head == null) {
+            res = pre
+            return
+        }
+
+        var temp = _head.next
+
+        _head.next = pre
+        dfs(temp,_head)
+
+    }
+
+    dfs(head,null)
+
+    // console.log(res)
+
+    return res
+}
+
 // @lc code=end
 

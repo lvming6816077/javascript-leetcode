@@ -89,7 +89,7 @@ var exist = function(board, word) {
     var n = board[0].length
     var visited = new Array(m).fill('').map(d=>new Array(n).fill(false))
     var dfs = function(i,j,index) {
-        if (i <0 || i >=m || j <0 || j>=0 || word[index] != board[i][j] || visited[i][j]) {
+        if (i <0 || i >=m || j <0 || j>=n || word[index] != board[i][j] || visited[i][j]) {
             return false
         }
 
@@ -99,7 +99,7 @@ var exist = function(board, word) {
 
         visited[i][j] = true
 
-        var res =bfs(i+1,j,index+1)||bfs(i,j+1,index+1)||bfs(i-1,j,index+1)||bfs(i,j-1,index+1)
+        var res =dfs(i+1,j,index+1)||dfs(i,j+1,index+1)||dfs(i-1,j,index+1)||dfs(i,j-1,index+1)
         visited[i][j] = false
 
         return res

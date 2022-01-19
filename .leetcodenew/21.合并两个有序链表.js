@@ -92,5 +92,29 @@ var mergeTwoLists = function(l1, l2) {
 
     return head.next
 }
+var mergeTwoLists = function(l1, l2) {
+    var dummy = new ListNode()
+    var dummy_head = dummy
+    while(l1 && l2) {
+        if (l1.val < l2.val) {
+            dummy_head.next = l1
+            l1 = l1.next
+        } else {
+            dummy_head.next = l2
+            l2 = l2.next
+        }
+
+        dummy_head = dummy_head.next
+    }
+
+    if (l1 == null) {
+        dummy_head.next = l2
+    }
+    if (l2 == null) {
+        dummy_head.next = l1
+    }
+
+    return dummy.next
+}
 // @lc code=end
 

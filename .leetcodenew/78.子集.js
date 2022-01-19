@@ -27,5 +27,23 @@ var subsets = function(nums) {
 
     return res
 };
+
+var subsets = function(nums) {
+    var res = []
+    var back = function(temp,start) {
+        res.push(temp.slice())
+        if (start >= nums.length) return
+        
+        for (var i = start ; i < nums.length ;i++) {
+            temp.push(nums[i])
+            back(temp,i+1)
+            temp.pop()
+        }
+    }
+
+    back([],0)
+
+    return res
+}
 // @lc code=end
 

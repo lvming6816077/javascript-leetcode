@@ -10,31 +10,54 @@
  * @param {number} k
  * @return {number[]}
  */
- function getMaxOfArray(numArray) {
+ class maxQueue {
+    constructor(){
+        this.items = []
+    }
+    // 进入队列
+    enqueue(ele){
+      // 把前面比新元素小的元素都删掉
+      while(this.items.length && this.items[this.items.length-1] < ele) {
+        this.items.pop()
+      }
+      this.items.push(ele)
+    }
+    // 队首出队
+    dequeue(ele){
+      // 判断是否是需要移出的元素
+      if (this.items.length && this.items[0] == ele) {
+        this.items.shift()
+      }
+    }
+    // 队首就是最大元素
+    front(){
+      return this.items[0]
+    }
+    max(){
+        return this.front()// 队首就是最大元素
+    }
+}
+function getMaxOfArray(numArray) {
     return Math.max.apply(null, numArray);
 }
 var maxSlidingWindow = function(nums, k) {
     if (k == 1) return nums
     var right = 0,left = 0
-    var arr = []
+    var window = new maxQueue()
     var res = []
 
     while (right < nums.length) {
         var r = nums[right]
         right++
         
-        while(arr.length && arr[arr.length-1] < r) {
-            arr.pop()
-        }
-        arr.push(r)
+        window.enqueue(r)
 
 
         while (right-left >= k) {
             var l = nums[left]
-            res.push(arr[0])
-            if (l == arr[0]) {
-                arr.shift()
-            }
+            res.push(window.max())
+
+            window.dequeue(l)
             
             left++
         }
@@ -42,6 +65,7 @@ var maxSlidingWindow = function(nums, k) {
 
     return res
 };
+
 var maxSlidingWindow1 = function(nums, k) {
     if (!nums.length) return [];
     if (k === 1) return nums;
@@ -60,48 +84,6 @@ var maxSlidingWindow1 = function(nums, k) {
     }
     return res;
 };
-var MaxStack = function() {
-    this.stack = []
-    return this
-};
 
-/** 
- * @param {number} val
- * @return {void}
- */
-MaxStack.prototype.push = function(val) {
-
-
-    while (this.stack.length && this.stack[this.stack.length-1] < val) {
-        this.stack.pop();
-    }
-    
-
-    this.stack.push(val);
-
-};
-
-
-MaxStack.prototype.shift = function(val) {
-    if (this.stack[0] == val) {
-        this.stack.shift();
-    }
-
-
-};
-MaxStack.prototype.length = function() {
-    return this.stack.length;
-
-};
-
-
-
-/**
- * @return {number}
- */
-MaxStack.prototype.getMax = function() {
-
-    return this.stack[0]
-};
 // @lc code=end
 

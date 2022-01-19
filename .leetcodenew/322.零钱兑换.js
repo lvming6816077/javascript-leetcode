@@ -23,5 +23,19 @@ var coinChange = function(coins, amount) {
     }
     return dp[amount] == Number.MAX_SAFE_INTEGER ? -1 : dp[amount]
 };
+var coinChange = function(coins, amount) {
+    var dp = new Array(amount+1).fill(Number.MAX_SAFE_INTEGER)
+    dp[0] = 0
+    for (var i = 0 ; i < coins.length ; i++) {
+        for (var j = 0 ; j <= amount ; j++) {
+            if (j >= coins[i]) {
+                dp[j] = Math.min(dp[j],dp[j-coins[i]]+1)
+            }
+            
+        }
+    }
+    return dp[amount] == Number.MAX_SAFE_INTEGER ? -1 : dp[amount]
+};
+
 // @lc code=end
 

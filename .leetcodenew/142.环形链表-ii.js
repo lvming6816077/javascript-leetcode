@@ -20,26 +20,29 @@
 var detectCycle = function(head) {
     var fast = head
     var slow = head
-    var entre = null
+    var entre = head
 
     while (fast && fast.next && slow) {
         fast = fast.next.next
         slow = slow.next
 
         if (fast == slow) {
-            nodelength(slow,fast)
+            // nodelength(slow,fast)
 
+            while(entre != slow) {
+                entre = entre.next
+                slow = slow.next
+            }
 
-
+            return entre
             
-            break
         }
     }
 
 
 
 
-    return entre
+    return null
 };
 var nodelength = function(p1, p2){
     var count = 0

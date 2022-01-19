@@ -9,7 +9,7 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-var productExceptSelf1 = function(nums) {
+var productExceptSelf = function(nums) {
     var res = []
     for (var i = 0 ; i < nums.length ; i++) {
         var plu = 1;
@@ -30,7 +30,7 @@ var productExceptSelf = function(nums) {
     var arr2 = []
     var res = []
     for (var i = 0 ; i < nums.length ; i++) {
-        sum = sum * nums[i]//(nums[i-1] == undefined ? 1 : nums[i-1])
+        sum = sum * (nums[i-1] == undefined ? 1 : nums[i-1])
         arr1.push(sum)
     }
     console.log(arr1)
@@ -40,7 +40,10 @@ var productExceptSelf = function(nums) {
         arr2.push(sum)
     }
 
+    
+
     arr2.reverse()
+    console.log(arr2)
     for (var i = 0 ; i < nums.length ; i++) {
         
         res.push(arr1[i]*arr2[i])

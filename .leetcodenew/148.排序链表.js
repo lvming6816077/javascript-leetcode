@@ -38,7 +38,7 @@ var sortList = function(head) {
     // console.log(h)
     return h
 };
-var sortList1 = function(head) {
+var sortList = function(head) {
     if(head==null || head.next==null) return head;
     var slow = head
     var fast = head.next

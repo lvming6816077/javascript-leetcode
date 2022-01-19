@@ -9,8 +9,33 @@
  * @param {string} s
  * @return {string}
  */
-var longestPalindrome = function(s) {
+ var longestPalindrome = function(s) {
+     if (s.length == 1) return s
+     var n = s.length
+     var dp = new Array(n).fill('').map(d=>new Array(n).fill(false))
+
+     var res = ''
+
+     for (var i = n-1 ; i>=0 ; i--) {
+         for (var j = i ; j < n ;j++) {
+             if (s[i] == s[j] && (j - i <2 || dp[i+1][j-1])) {
+                 dp[i][j] = true
+             }
+             if (dp[i][j]) {
+                 var l = j - i + 1
+                 if (l > res.length) {
+                     res = s.substring(i,j+1)
+                 }
+             }
+         }
+     }
+
+     return res
+ }
+var longestPalindrome1 = function(s) {
+    // 单个字符必然是回文串
     if (s.length == 1) return s
+    // 判断是否是回文串
     var check = function(str){
         var mid = parseInt(str.length/2)
 
@@ -24,14 +49,14 @@ var longestPalindrome = function(s) {
 
     }
     var res = ''
+    //枚举出所有子串
     for (var i = 0 ; i < s.length ; i++) {
         var cur = s[i]
         for (var j = i+1 ; j < s.length ; j++) {
             cur = cur + '' + s[j]
-            // console.log(cur)
             if (check(cur)) {
-                // console.log(cur)
-                if (cur.length > res.length) {
+
+                if (cur.length > res.length) { // 每次取长度的较大值
                     res = cur
                 }
             }
@@ -46,12 +71,12 @@ var longestPalindrome1 = function(s) {
     let dp = Array.from(new Array(n),() => new Array(n).fill(0));
     //考虑到 主要的递推关系 是由已知子串 i+1..j-1 的情况， 递推到 i..j 的情况， 因此，迭代过程需要反序迭代变量 i ，正序迭代 j
     for(let i = n-1;i >= 0;i--){
-        for(let j = i;j < n;j++){//j - i < 2单个字符肯定是回文串 
+        for(let j = i;j < n;j++){//(j - i < 2)单个字符肯定是回文串 
             //dp[i+1][j-1] 且 s[i] == s[j] 则dp[i][j]肯定是回文串
             if (s[i] == s[j] && (j - i < 2 || dp[i+1][j-1])) {
                 dp[i][j] = true
             }
-            // 如果dp[i][j]是回文 就记录最大的值
+            // 如果dp[i][j]是回文 就记录最大的值(j - i +1)表示长度
             if(dp[i][j] && j - i +1 > res.length){
                 res = s.substring(i,j+1);
             }
@@ -79,7 +104,7 @@ var longestPalindrome1 = function(s) {
     return res
 }
 
-var longestPalindrome = function(s) {
+var longestPalindrome1 = function(s) {
     var n = s.length
     var res = ''
     var dp = new Array(n).fill('').map(()=>new Array(n).fill(false))
@@ -97,7 +122,7 @@ var longestPalindrome = function(s) {
 
     return res
 }
-var longestPalindrome = function(s) {
+var longestPalindrome1 = function(s) {
     var n = s.length
     for (var i = n-1 ; i>=0 ; i--) {
         for (var j = i ; j < n ; j++) {

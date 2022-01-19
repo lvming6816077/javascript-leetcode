@@ -40,8 +40,6 @@ var postorderTraversal = function(root) {
     }
 
     return res
-    
-
 };
 // @lc code=end
 

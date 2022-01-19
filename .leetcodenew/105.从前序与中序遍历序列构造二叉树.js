@@ -19,9 +19,21 @@
  * @return {TreeNode}
  */
 var buildTree = function(preorder, inorder) {
+    preorder = [0,1,3,7,8,4,9,2,5,6]
+    inorder = [7,3,8,1,9,4,0,5,2,6]
 
-    return buildTreeDeal(preorder,0,preorder.length-1,inorder,0,inorder.length-1)
+    var res = buildTreeDeal(preorder,0,preorder.length-1,inorder,0,inorder.length-1)
 
+    var loop = function(root){
+        // 当前节点为空，表示达到了叶子节点
+        if (root == null) return
+        // 接着找左子树
+        loop(root.left)
+        // 接着找右子树
+        loop(root.right)
+    }
+    loop(root)
+    return res
 };
 var buildTreeDeal = function(preorder,pstart,pend,inorder,istart,iend){
 
