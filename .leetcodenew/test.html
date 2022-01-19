@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <script type="text/javascript" src="./promise.js"></script>
+    <script type="text/javascript" src="https://test2-trade-admin.yimei180.net/js/chunk-7a5169a2.604b51e3.js"></script>
+
+  </head>
+  <body>
+    <div class="main clearfix">
+      <div class="center">中间自适应</div>
+      <div class="left">左列定宽</div>
+
+      <div class="right">右列定宽</div>
+</div>
+
+
+    <script>
+      var throttle = (fn, delay)=>{
+        let last = 0;
+        return (...args)=>{
+          let now = Date.now()
+
+          if (Date.now() - last > delay) {
+            last = now
+
+            fn && fn.apply(this, args)
+          }
+        } 
+      }
+//函数节流应用的实际场景，多数在监听页面元素滚动事件的时候会用到
+      // setInterval(throttle(()=>{
+      //     console.log(11)
+      //   },3000),500)
+
+      const throttle = (fn, delay)=>{
+        var last = 0
+
+        return (...args) =>{
+          let now = Date.now()
+          if (now - last > delay) {
+            last = now
+            fn && fn.apply(this,args)
+          }
+        }
+      }
+
+
+      const debounce = (fn, delay) =>{
+        let timer;
+        debugger
+        return (...args) => {
+
+          if (timer) {
+            clearTimeout(timer)
+          }
+          timer = setTimeout(()=>{
+            fn && fn.apply(this, args)
+          }, delay)
+        } 
+
+      }
+
+      const debounce = (fn, delay) =>{
+        var timer
+        return (...args) =>{
+          if (timer) {
+            clearTimeout(timer)
+          }
+
+          timer = setTimeout(()=>{
+            fn && fn.apply(this,args)
+          },delay)
+        }
+      }
+//函数防抖的应用场景，最常见的就是用户注册时候的手机号码验证和邮箱验证了。只有等用户输入完毕后，前端才需要检查格式是否正确，如果不正确，再弹出提示语。以下还是以页面元素滚动监听的例子，来进行解析
+      // setInterval(debounce(()=>{
+      //   console.log(12)
+      // },500),1000)
+
+function Promiselv(handler) {
+  var that = this
+  this.state = 'pending'
+  this.resolveValue = '';
+  this.rejectValue = '';
+  this.resolveList = []
+  this.rejectList = []
+  var resolve = function(val){
+
+    if (that.state == 'pending') {
+      that.state = 'resolved'
+      that.resolveValue = val
+
+      that.resolveList.forEach(function(item){
+        item && item(that.resolveValue)
+      })
+    }
+  }
+  var reject = function(val){
+    if (that.state == 'pending') {
+      that.state = 'rejected'
+      that.rejectValue = val
+    }
+    that.rejectList.forEach(function(item){
+      item && item(that.rejectValue)
+    })
+  }
+
+
+  try {
+    handler(resolve,reject)
+  }catch(e){
+    reject(e)
+  }
+}
+
+Promiselv.prototype.then = function(onResolved, onRejected){
+
+
+  if(this.state === 'resolved'){
+      onResolved && onResolved(this.resolveValue)
+  }
+  if(this.state === 'rejected'){
+      onRejected && onRejected(this.rejectValue)
+  }
+  if (this.state == 'pending') {
+    this.rejectList.push(onRejected)
+    this.resolveList.push(onResolved)
+  }
+
+
+}
+var p1 = new Promiselv(function(resolve,reject){
+  // console.log(1)
+  setTimeout(function(){
+      resolve(11)
+  },1000)
+
+  
+})
+// var all = function(promiseList){
+//   var result = []
+//   var count = 0;
+//   return new Promiselv(function(resolve, reject){
+//     promiseList.forEach(function(item,i){
+//       item.then(function(val){
+//         count++
+//         result.push(val)
+
+//         if (count == promiseList.length) {
+
+//           resolve(result)
+//         }
+//       })
+//     })
+//   })
+
+
+// }
+// var race = function(promiseList){
+//   return new Promiselv(function(resolve, reject){
+//     promiseList.forEach(function(item,i){
+//       item.then(function(val){
+//         resolve(val)
+//       })
+//     })
+//   })
+
+
+// }
+Promise.all = function(iterator) {
+  if (!Array.isArray(iterator)) return;
+  let count = 0;
+  let res = [];
+  return new Promise((resolve, reject) => {
+    for(let item of iterator) {
+      Promise.resolve(item)
+      .then(data => {
+        res[count++] = data;
+        if (count === iterator.length) {
+          resolve(res);
+        }
+      })
+      .catch(e => {
+        reject(e);
+      })
+    }
+  })
+}
+       function promiseRace(promises) {
+            if (!Array.isArray(promises)) {
+                throw new Error("promises must be an array")
+            }
+            return new Promise(function (resolve, reject) {
+                promises.forEach(p =>
+                    Promise.resolve(p).then(data => {
+                        resolve(data)
+                    }, err => {
+                        reject(err)
+                    })
+                )
+            })
+        }
+      var PubSub = (function() {  
+    var queue = {};
+    var subscribe = function(event, fn) {
+        if (!queue[event]) queue[event] = [];
+        queue[event].push(fn);
+    }
+    var publish = function(event) {
+        var eventQueue = queue[event],
+            len = eventQueue.length;
+        if (eventQueue) {
+            eventQueue.forEach(function(item, index) {
+                item();
+            });
+        }
+    }
+    var off = function(event, fn) {
+        var eventQueue = queue[event];
+        if (eventQueue) {
+            queue[event] = eventQueue.filter(function(item) {
+                return item !== fn;
+            });
+        }
+    }
+    return {
+        subscribe: on,
+        publish: emit,
+        off: off
+    }
+}());
+    </script>
+  </body>
+</html>
