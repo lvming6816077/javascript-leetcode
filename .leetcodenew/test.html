@@ -233,6 +233,53 @@ Promise.all = function(iterator) {
         off: off
     }
 }());
+      // instanceof
+      function myInstanceof(left, right) {
+  while (true) {
+    if (left === null) {
+      return false;
+    }
+    if (left.__proto__ === right.prototype) {
+      return true;
+    }
+    left = left.__proto__;
+  }
+}
+
+      // 深拷贝
+function isObject(val) {
+  return typeof val === "object" && val !== null;
+}
+
+function deepClone(obj, hash = new WeakMap()) {
+  if (!isObject(obj)) return obj;
+  if (hash.has(obj)) {
+    return hash.get(obj);
+  }
+  let target = Array.isArray(obj) ? [] : {};
+  hash.set(obj, target);
+  Reflect.ownKeys(obj).forEach((item) => {
+    if (isObject(obj[item])) {
+      target[item] = deepClone(obj[item], hash);
+    } else {
+      target[item] = obj[item];
+    }
+  });
+
+  return target;
+}
+
+// new 操作符
+      function myNew(fn, ...args) {
+  let obj = Object.create(fn.prototype);
+  let res = fn.call(obj, ...args);
+  if (res && (typeof res === "object" || typeof res === "function")) {
+    return res;
+  }
+  return obj;
+}
+
+
     </script>
   </body>
 </html>
