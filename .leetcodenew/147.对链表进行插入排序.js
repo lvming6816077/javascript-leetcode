@@ -16,7 +16,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var insertionSortList1 = function(head) {
+var insertionSortList = function(head) {
     var cur = head
     var arr = []
     while(cur) {
@@ -31,27 +31,38 @@ var insertionSortList1 = function(head) {
         }
     }
     var len = arr.length
-    var temp = arr
-    var arr1 = []
-    for (var i = 0 ; i < len ; i++) {
-        var obj = getMin(temp)
-        arr1.push(obj.min)
-        temp.splice(obj.index,1)
-    }
-    // console.log(arr1)
-    arr = arr1
-    
-    // for (var i = 0 ; i < arr.length ; i++) {
-    //     for (var j = i ; j >0 ; j--) {
-    //         if (arr[j] < arr[j-1]) {
-    //             var temp = arr[j]
-    //             arr[j] = arr[j-1]
-    //             arr[j-1] = temp
-    //         } else {
-    //             break
-    //         }
-    //     }
+    // var temp = arr
+    // var arr1 = []
+    // for (var i = 0 ; i < len ; i++) {
+    //     var obj = getMin(temp)
+    //     arr1.push(obj.min)
+    //     temp.splice(obj.index,1)
     // }
+    // // console.log(arr1)
+    // arr = arr1
+    
+    // // for (var i = 0 ; i < arr.length ; i++) {
+    // //     for (var j = i ; j >0 ; j--) {
+    // //         if (arr[j] < arr[j-1]) {
+    // //             var temp = arr[j]
+    // //             arr[j] = arr[j-1]
+    // //             arr[j-1] = temp
+    // //         } else {
+    // //             break
+    // //         }
+    // //     }
+    // // }
+
+    for (var i = 1 ; i < arr.length ; i++) {
+        var j = i
+        var target = arr[j]
+
+        while(j > 0 && arr[j-1] > target) {
+            arr[j] = arr[j-1]
+            j--
+        }
+        arr[j] = target
+    }
 
     var res = new ListNode(arr[0])
     var newhead = res
@@ -63,7 +74,7 @@ var insertionSortList1 = function(head) {
 
     return res
 };
-var insertionSortList = function(head) {
+var insertionSortList1 = function(head) {
     if (head == null || head.next == null) return head
 
     var dy = new ListNode(null)

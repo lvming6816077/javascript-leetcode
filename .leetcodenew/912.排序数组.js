@@ -9,7 +9,7 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-var sortArray = function(nums) {
+var sortArray1 = function(nums) {
     for (var i = 0 ; i < nums.length ; i++) {
         for (var j = 0 ; j < nums.length - i -1;j++) {
             if (nums[j] > nums[j+1]) {
@@ -22,7 +22,7 @@ var sortArray = function(nums) {
 
     return nums
 };
-var sortArray = function(nums) {
+var sortArray1 = function(nums) {
     if (nums.length <= 1) return nums
     var mid = Math.floor(nums.length/2)
     var midArr = nums.splice(mid,1)[0]
@@ -38,7 +38,7 @@ var sortArray = function(nums) {
 
     return sortArray(left).concat([midArr]).concat(sortArray(right))
 };
-var sortArray = function(nums) {
+var sortArray1 = function(nums) {
     if (nums.length <= 1) {
         return nums;
     }
@@ -75,8 +75,18 @@ var merge = function(arr1,arr2) {
 
     return res
 }
-var sortArray1 = function(nums) {
+var sortArray = function(nums) {
+    for (var i = 0 ; i < nums.length ; i++) {
+        for (var j = i ; j > 0 ; j--) {
+            if (nums[j] < nums[j-1]) {
+                [nums[j],nums[j-1]] = [nums[j-1],nums[j]]
+            } else {
+                break
+            }
+        }
+    }
 
+    return nums
 }
 // @lc code=end
 

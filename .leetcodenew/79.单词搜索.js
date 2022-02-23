@@ -118,6 +118,56 @@ var exist = function(board, word) {
 
     return false;
 };
+var exist = function(board, word) {
+    var m = board.length
+    var n = board[0].length
+    var visited = new Array(m).fill('').map(d=>new Array(n).fill(false))
+    var bfs = function(i,j,index) {
+        if (i <0 || i >=m || j <0 || j>=n || word[index] != board[i][j] || visited[i][j]) {
+            return false
+        }
+
+        if (index == word.length-1) {
+            return true
+        }
+
+        var dirs = [[-1,0],[1,0],[0,-1],[0,1]]
+
+        visited[i][j] = true
+        for (var dir of dirs) {
+            var nx = i+dir[0]
+            var ny = j+dir[1]
+            
+            if (nx >=0 && nx < m && ny >=0 && ny <n) {
+                
+                let ret = bfs(nx,ny,index+1)
+                
+                if (ret) {
+                    return true
+                }
+
+
+            }
+            
+            
+        }
+        visited[i][j] = false
+
+        return false
+
+    }
+    for (var i = 0; i < m; i++) {
+        for (var j = 0; j < n; j++) {
+
+            if (bfs(i, j, 0)) {
+                return true;
+            }
+        }
+    }
+
+
+    return false;
+};
 
 // @lc code=end
 

@@ -56,5 +56,40 @@ var addStrings = function(num1, num2) {
 
     return s
 }
+var subStrings = function(num1, num2) {
+    if (num1 == num2) return '0'
+    if (num1 < num2) {
+        var temp = num1
+        num1 = num2
+        num2 = temp
+    }
+    var len = Math.max(num1.length,num2.length)
+    num1 = num1.padStart(len,'0')
+    num2 = num2.padStart(len,'0')
+
+    var jin = 0
+    var s = ''
+    var val = 0
+
+    for (var i = len-1 ; i >=0 ; i--) {
+        
+        if (Number(num1[i]) >= Number(num2[i])) {
+            
+            val = Number(num1[i])-Number(num2[i])-jin
+            jin = 0
+
+        } else {
+            val = 10+Number(num1[i])-Number(num2[i])-jin
+            jin = 1
+        }
+        
+        s = val%10 + s
+
+    }
+
+    s = s.replace(/^0+/g,'')
+
+    return s
+}
 // @lc code=end
 

@@ -147,6 +147,21 @@ var reverseList = function(head) {
 
     return res
 }
+var reverseLinkedList = function(head) {
+    var cur = head
+    var prev = null
 
+    while(cur) {
+        var temp = cur.next
+        cur.next = prev
+
+        prev = cur
+
+        cur = temp
+    }
+
+    return prev
+
+}
 // @lc code=end
 

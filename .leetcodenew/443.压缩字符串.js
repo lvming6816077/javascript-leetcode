@@ -100,5 +100,26 @@ var compress = function(chars) {
 
     return wright
 }
+var compress = function(chars) {
+    var read = 0,wright = 0 ,i = 0
+
+    while(read <= chars.length) {
+        if (chars[read] != chars[i]) {
+            chars[wright++] = chars[i]
+            var count = read - i
+            if (count > 1) {
+                for (var j = 0 ; j < count.toString().length ; j++) {
+                    chars[wright++] = count.toString()[j]
+                }
+            }
+            
+            i = read
+        }
+
+        read++
+    }
+
+    return wright
+}
 // @lc code=end
 

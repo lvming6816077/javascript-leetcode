@@ -26,6 +26,21 @@ var majorityElement = function(nums) {
 
     return major
 };
+var majorityElement = function(nums) {
+    var count = 0
+    var major = -1
+    for (var i = 0 ; i < nums.length ; i++) {
+        if (count == 0) {
+            major = nums[i]
+        }
+        if (major == nums[i]) {
+            count++
+        } else {
+            count--
+        }
+    }
 
+    return major
+}
 // @lc code=end
 
