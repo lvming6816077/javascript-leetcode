@@ -120,16 +120,27 @@ function Promiselv(handler) {
 Promiselv.prototype.then = function(onResolved, onRejected){
 
 
-  if(this.state === 'resolved'){
-      onResolved && onResolved(this.resolveValue)
-  }
-  if(this.state === 'rejected'){
-      onRejected && onRejected(this.rejectValue)
-  }
-  if (this.state == 'pending') {
-    this.rejectList.push(onRejected)
-    this.resolveList.push(onResolved)
-  }
+var thenPromise = new Promiselv((resolve, reject) => {
+          if (this.state === 'resolved') {
+              var x = onResolved(this.resolveValue);
+              if (x instanceof Promiselv) {
+                x.then(resolve,reject)
+              } else {
+                resolve(x)
+              }
+          } else if (this.state === 'rejected') {
+              let x = onRejected(this.rejectValue);
+              if (x instanceof Promiselv) {
+                x.then(resolve,reject)
+              } else {
+                reject(x)
+              }
+          } else {
+              this.resolveList.push(onResolved);
+              this.rejectList.push(onRejected);
+          }
+      })
+      return thenPromise;
 
 
 }
