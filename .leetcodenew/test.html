@@ -313,6 +313,25 @@ function deepClone(obj, hash = new WeakMap()) {
   }
   return obj;
 }
+      
+      // 扁平化对象
+function flattenObj(obj, tempKey, resultObj) {
+            tempKey = tempKey || '';
+            resultObj = resultObj || {};
+            for (let key in obj) {
+                var value = obj[key];
+                if (typeof value == 'object') {
+                    tempKey = tempKey + key + '.';
+                    flattenObj(value, tempKey, resultObj);
+                    tempKey = '';
+                } else {
+                    tempKey = tempKey + key;
+                    resultObj[tempKey] = value;
+                }
+            };
+            return resultObj;
+        }
+
 
 
     </script>
