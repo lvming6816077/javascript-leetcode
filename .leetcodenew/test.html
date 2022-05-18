@@ -315,22 +315,32 @@ function deepClone(obj, hash = new WeakMap()) {
 }
       
       // 扁平化对象
-function flattenObj(obj, tempKey, resultObj) {
-            tempKey = tempKey || '';
-            resultObj = resultObj || {};
-            for (let key in obj) {
-                var value = obj[key];
-                if (typeof value == 'object') {
-                    tempKey = tempKey + key + '.';
-                    flattenObj(value, tempKey, resultObj);
-                    tempKey = '';
-                } else {
-                    tempKey = tempKey + key;
-                    resultObj[tempKey] = value;
-                }
-            };
-            return resultObj;
-        }
+      function isObject(val) {
+          return typeof val === "object" && val !== null;
+      }
+      var flatten = function(obj){
+          if (!isObject(obj)) return obj
+          var res = {}
+          var dfs = function(cur,pre){
+              if (isObject(cur)) {
+                  if (Array.isArray(cur)) {
+                      cur.forEach((item,index)=>{
+                          dfs(item,pre+'['+index+']')
+                      })
+                  } else {
+                      for (var key in cur) {
+                          dfs(cur[key],pre==''?key :pre+'.'+key)
+                      }
+                  }
+              } else {
+                  res[pre] = cur
+              }
+          }
+
+          dfs(obj,'')
+
+          return res
+      }
    
    // 反扁平化对象
    var unflatten2 = function(data) {
