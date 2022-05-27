@@ -360,6 +360,34 @@ function deepClone(obj, hash = new WeakMap()) {
     }
     return result[""];
 }
+Array.prototype.myreduce = function(fn,initV){
+  const array = this
+  let pre = null
+    if (initV) {
+      pre = initV
+      for (var i = 0 ; i < array.length ; i++) {
+        pre = fn.call(array,pre,array[i],i,array)
+      }
+    } else {
+      pre = array[0]
+      for (var i = 1 ; i < array.length ; i++) {
+        pre = fn.call(array,pre,array[i],i,array)
+      }
+    }
+
+    return pre
+}
+// 洗牌算法
+const shuffle1 = () => {
+    const arr = [0, 1, 2, 3, 4];
+    for (let i = 1; i < arr.length; i++) {
+        
+        const random = Math.floor(Math.random() * (i + 1));
+        alert(random)
+        [arr[i], arr[random]] = [arr[random], arr[i]];
+    }
+    return arr;
+};
 
 class Scheduler {
   constructor() {
