@@ -152,36 +152,7 @@ var p1 = new Promiselv(function(resolve,reject){
 
   
 })
-// var all = function(promiseList){
-//   var result = []
-//   var count = 0;
-//   return new Promiselv(function(resolve, reject){
-//     promiseList.forEach(function(item,i){
-//       item.then(function(val){
-//         count++
-//         result.push(val)
 
-//         if (count == promiseList.length) {
-
-//           resolve(result)
-//         }
-//       })
-//     })
-//   })
-
-
-// }
-// var race = function(promiseList){
-//   return new Promiselv(function(resolve, reject){
-//     promiseList.forEach(function(item,i){
-//       item.then(function(val){
-//         resolve(val)
-//       })
-//     })
-//   })
-
-
-// }
 Promise.all = function(iterator) {
   if (!Array.isArray(iterator)) return;
   let count = 0;
@@ -360,6 +331,7 @@ function deepClone(obj, hash = new WeakMap()) {
     }
     return result[""];
 }
+   // 自实现reduce
 Array.prototype.myreduce = function(fn,initV){
   const array = this
   let pre = null
@@ -388,6 +360,25 @@ const shuffle1 = () => {
     }
     return arr;
 };
+ //手写-setTimeout 模拟实现 setInterval（阿里）
+function mySetInterval(fn, time = 1000) {
+  let timer = null,
+    isClear = false;
+  function interval() {
+    if (isClear) {
+      isClear = false;
+      clearTimeout(timer);
+      return;
+    }
+    fn();
+    timer = setTimeout(interval, time);
+  }
+  timer = setTimeout(interval, time);
+  return () => {
+    isClear = true;
+  };
+}
+
 
 class Scheduler {
   constructor() {
