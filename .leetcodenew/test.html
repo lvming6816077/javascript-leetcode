@@ -425,6 +425,18 @@ addTask(400, '4');
   
 scheduler.taskStart()
 
+//js模板字符串替换
+var tpl = 'Hei, my name is <%name%>, and I\'m <%age.v%> years old.';
+var data = {
+    "name": "Barret Lee",
+    "age": {
+        "v":3
+    }
+};
+var result = tpl.replace(/<%([^%>]+)?%>/g, function(s0, s1){
+    return eval('data.'+s1);
+});
+
     </script>
   </body>
 </html>
