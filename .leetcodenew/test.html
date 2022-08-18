@@ -379,6 +379,20 @@ function mySetInterval(fn, time = 1000) {
   };
 }
 
+// 柯里化
+const add = (...a) => {
+  let res = a.reduce((pre, cur) => pre + cur);
+  const add_ = (...b) => add(res, ...b);
+  // 因为每次返回的都是add_，因此要给它绑toString方法
+  add_.toString = () => {
+    return res;
+  };
+  return add_;
+};
+
+console.log(+add(1)(2));// 3
+console.log(+add(1)(2, 3));// 6
+console.log(+add(1)(2, 3)(4));// 10
 
 class Scheduler {
   constructor() {
